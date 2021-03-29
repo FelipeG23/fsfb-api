@@ -149,7 +149,7 @@ public class QueryConst {
                 + "AND  OBJ.SER_REC_TIPO = REC.SER_REC_TIPO "
                 + "AND LUG.SER_LUG_TIPOLUGAR= REC.SER_REC_TIPOLUGAR) \"ubicacion\", \n"
                 + "CA.CODIGOCENTROATEN \"Letra Codigo Centro Operativo\", \n"
-                + "CONV.CON_TIPOCONVECOD \"TipoConvenio\" "
+                + "CONV.CON_TIPOCONVECOD \"TipoConvenio\",FORCIT.RPA_FOR_NUMERFORMU  \"NroFormulario\" "
                 + "FROM            ADMSALUD.PCA_AGENDA@ISIS AGEND\n"
                 + "\n"
                 + "INNER JOIN      ADMSALUD.PAC_PACIENTE@ISIS PAC\n"
@@ -302,7 +302,7 @@ public class QueryConst {
                 + "ON com.pac_pac_numero = pac.pac_pac_numero\n"
                 + "LEFT JOIN ADMSALUD.TAB_TIPOIDENT@ISIS tip\n"
                 + "ON TRIM(pac.PAC_PAC_TIPOIDENTCODIGO) = TRIM(tip.TAB_TIPOIDENTCODIGO)\n"
-                + "WHERE COM.CG_FECHA_PROCESO BETWEEN :FECHAINICIAL AND :FECHAFINAL \n";
+                + "";
         ;
 
         public static final String AND_ESTADOS = " AND (SELECT MAX(TRA.EOM_IDCODIGO) FROM CA_TRAZA_ORDENMEDICAS TRA WHERE TRA.ORM_ID_ORDM_NUMERO = COM.ORM_ID_ORDM_NUMERO) IN (:ESTADOS)\n";
@@ -339,6 +339,19 @@ public class QueryConst {
                 + "AND CITZ.CG_ID_CITA_NUMERO = CCG.CG_ID_CITA_NUMERO \n"
                 + "ORDER BY CITZ.GAU_FECHA_AUTORIZACION desc";
         public static final String CONSULTAR_SUBESPECIALIDADES = "SELECT SER_SUB_CODIGO, TRIM(SER_SUB_DESCRIPCIO), SER_ESP_CODIGO FROM ADMSALUD.SER_SUBESPECIA@ISIS ORDER BY SER_SUB_DESCRIPCIO";
+        //
+//        public static final String CONSULTAR_SERVICIOS = "SELECT\n"
+//                + "SER.SER_SER_CODIGO COD_SERVICIO,\n"
+//                + "SER.SER_SER_DESCRIPCIO SERVICIO,\n"
+//                + "SER.SER_SER_CODSUBESPE COD_SUBESPE,\n"
+//                + "SER.SER_SER_CODIGESPEC COD_ESPE\n"
+//                + "FROM ADMSALUD.SER_SERVICIOS@ISIS SER,\n"
+//                + "ADMSALUD.SER_ESPECIALI@ISIS ESPE,\n"
+//                + "ADMSALUD.SER_SUBESPECIA@ISIS SUBESPE\n"
+//                + "WHERE SER.SER_SER_CODIGESPEC = ESPE.SER_ESP_CODIGO\n"
+//                + "AND SER.SER_SER_CODSUBESPE= SUBESPE.SER_SUB_CODIGO\n"
+//                + "AND SUBESPE.SER_ESP_CODIGO=ESPE.SER_ESP_CODIGO\n"
+//                + "ORDER BY SER.SER_SER_DESCRIPCIO";
         public static final String CONSULTAR_SERVICIOS = "SELECT\n"
                 + "SER.SER_SER_CODIGO COD_SERVICIO,\n"
                 + "SER.SER_SER_DESCRIPCIO SERVICIO,\n"
@@ -352,6 +365,7 @@ public class QueryConst {
                 + "AND SUBESPE.SER_ESP_CODIGO=ESPE.SER_ESP_CODIGO\n"
                 + "ORDER BY SER.SER_SER_DESCRIPCIO";
         public static final String CONSULTAR_MEDICOS = "SELECT SER_PRO_RUT, TRIM(SER_PRO_NOMBRES)||' '||TRIM(SER_PRO_APELLPATER)||' '||TRIM(SER_PRO_APELLMATER) NOMBRE, SER_PRO_TIPOIDENT FROM ADMSALUD.SER_PROFESIONA@ISIS WHERE SER_PRO_ESTADO='A' ORDER BY NOMBRE";
+        public static final String CONSULTAR_MEDICOS_LIKE = "SELECT SER_PRO_RUT, TRIM (SER_PRO_NOMBRES) || ' ' || TRIM (SER_PRO_APELLPATER) || ' ' || TRIM (SER_PRO_APELLMATER) NOMBRE, SER_PRO_TIPOIDENT FROM ADMSALUD.SER_PROFESIONA@ISIS WHERE SER_PRO_ESTADO = 'A' AND TRIM (SER_PRO_NOMBRES) || ' ' || TRIM (SER_PRO_APELLPATER) || ' ' || TRIM (SER_PRO_APELLMATER) LIKE '%";
         public static final String CONSULTAR_MOTIVOS_NO_AUTORIZA = "SELECT MNA_IDCODIGO, MNA_DESCRIPCION, MNA_ESTADO FROM CA_MOTIVOS_NO_AUTORIZACION WHERE MNA_ESTADO = '1'";
         public static final String CONSULTA_UBICACION_SEDES = "select distinct ubicacion as ub1, ubicacion as ub2, '' as ub3 from ca_ubicacion_sedes where ubicacion is not null";
 

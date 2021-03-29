@@ -4,6 +4,7 @@ import co.global.fsfb.fsfbapi.delegate.ICitaDelegate;
 import co.global.fsfb.fsfbapi.dto.ConsultaCitasDto;
 import co.global.fsfb.fsfbapi.dto.ResultadoCitaDto;
 import co.global.fsfb.fsfbapi.services.ICitaService;
+import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class CitaDelegate implements ICitaDelegate {
-    
+
     @Autowired
     private ICitaService citaService;
 
@@ -40,6 +41,11 @@ public class CitaDelegate implements ICitaDelegate {
     @Override
     public ResultadoCitaDto consultarCitaPorId(ConsultaCitasDto consultaCitasDto) {
         return citaService.consultarCitaPorId(consultaCitasDto);
+    }
+
+    @Override
+    public List<ResultadoCitaDto> consultarCitas2(ConsultaCitasDto consultaCitasDto) {
+        return citaService.consultarCitas2(consultaCitasDto);
     }
 
 }

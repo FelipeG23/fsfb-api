@@ -5,13 +5,12 @@ import co.global.fsfb.fsfbapi.dto.ListaDto;
 
 import java.util.List;
 
-
 /**
  *
  * @author POLLO
  */
 public interface IListaDelegate {
-    
+
     List<ListaDto> getSedes();
 
     List<ListaDto> getEspecialidades();
@@ -21,15 +20,17 @@ public interface IListaDelegate {
     List<ListaDto> getServicios();
 
     List<ListaDto> getConvenios();
-    
+
     List<ListaDto> getPolizas();
 
     List<ListaDto> getMedicos();
-    
+
+    List<ListaDto> getMedicos2(String valor);
+
     List<CitasAutorizadasDto> getCitasAutorizadas();
 
     List<ListaDto> getMotivoNoAutoriza();
-    
+
     List<ListaDto> getUbicacionSedes();
-    
+
 }

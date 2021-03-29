@@ -72,4 +72,11 @@ public class ListaDelegate implements IListaDelegate {
         return listaService.getList(QueryConst.Listas.CONSULTA_UBICACION_SEDES);
     }
 
+    @Override
+    public List<ListaDto> getMedicos2(String valor) {
+        String query = QueryConst.Listas.CONSULTAR_MEDICOS_LIKE +valor+ "%' ORDER BY NOMBRE " ;
+        
+        return listaService.consultarMedicos(query);
+    }
+
 }

@@ -3,27 +3,24 @@ package co.global.fsfb.fsfbapi.controllers;
 import co.global.fsfb.fsfbapi.delegate.IListaDelegate;
 import co.global.fsfb.fsfbapi.dto.CitasAutorizadasDto;
 import co.global.fsfb.fsfbapi.dto.ListaDto;
-import co.global.fsfb.fsfbapi.models.CaCitasGestionadas;
 import co.global.fsfb.fsfbapi.repositories.ICitaRepository.PruebaCita;
 import co.global.fsfb.fsfbapi.services.impl.ListaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -92,10 +89,15 @@ public class ListasController {
     }
 
     @PostMapping("/medicosv2")
-    public ResponseEntity<List<ListaDto>> getMedicos2() {
-        LOG.log(Level.INFO, "INICIO - CONSULTA MEDICOSV2");
-        ResponseEntity<List<ListaDto>> lista = ResponseEntity.ok(listaDelegate.getMedicos());
-         LOG.log(Level.INFO, "FIN - CONSULTA MEDICOSV2");
+    public ResponseEntity<List<ListaDto>> getMedicos2(
+            @RequestBody @Valid @NotNull String valor
+    ) {
+        try {
+            JSONObject obj = new JSONObject(valor);
+            valor = obj.getString("valor");
+        } catch (Exception e) {
+        }
+        ResponseEntity<List<ListaDto>> lista = ResponseEntity.ok(listaDelegate.getMedicos2(valor));
         return lista;
     }
 

@@ -1,205 +1,53 @@
-2020-11-24 08:39:26.503  INFO 20224 --- [RMI TCP Connection(939)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-11-24 08:39:26.578  INFO 20224 --- [RMI TCP Connection(939)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2020-11-24 08:39:26.580  INFO 20224 --- [RMI TCP Connection(939)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-11-24 09:03:06.478  INFO 7560 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : Starting FsfbApiApplication on PREPRODPORTAL with PID 7560 (D:\siscomputo\Backups\fsfb-api\fsfb-api\target\classes started by Administrator in D:\siscomputo\Backups\fsfb-api\fsfb-api)
-2020-11-24 09:03:06.481  INFO 7560 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : No active profile set, falling back to default profiles: default
-2020-11-24 09:03:06.534  INFO 7560 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Administrator\.m2\repository\com\oracle\ojdbc\ojdbc8\19.3.0.0\ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Administrator/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
-2020-11-24 09:03:06.534  INFO 7560 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Administrator\.m2\repository\com\oracle\ojdbc\oraclepki\19.3.0.0\oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Administrator/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/C:/Users/Administrator/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/C:/Users/Administrator/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/C:/Users/Administrator/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
-2020-11-24 09:03:06.535  INFO 7560 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2020-11-24 09:03:06.535  INFO 7560 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2020-11-24 09:03:07.320  INFO 7560 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2020-11-24 09:03:07.430  INFO 7560 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102ms. Found 9 JPA repository interfaces.
-2020-11-24 09:03:08.007  INFO 7560 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8091 (http)
-2020-11-24 09:03:08.016  INFO 7560 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-11-24 09:03:08.016  INFO 7560 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
-2020-11-24 09:03:08.138  INFO 7560 --- [restartedMain] o.a.c.c.C.[.[localhost].[/fsfb-api]      : Initializing Spring embedded WebApplicationContext
-2020-11-24 09:03:08.138  INFO 7560 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1602 ms
-2020-11-24 09:03:08.179 DEBUG 7560 --- [restartedMain] o.springframework.web.filter.CorsFilter  : Filter 'corsFilter' configured for use
-2020-11-24 09:03:08.385  INFO 7560 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-11-24 09:03:08.394  INFO 7560 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-11-24 09:03:10.179  INFO 7560 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-11-24 09:03:10.244  INFO 7560 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-11-24 09:03:10.298  INFO 7560 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.17.Final
-2020-11-24 09:03:10.341  WARN 7560 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-11-24 09:03:10.397 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	c.g.f.f.c.CitaController:
-	{PUT /citas/{id}/update-asistencia}: updateAsistencia(Long,String)
-	{POST /citas/byId}: updateAsistencia(ConsultaCitasDto)
-	{POST /citas}: consultarCitas(ConsultaCitasDto)
-	{POST /citas/porautorizar}: consultarCitasPorAutorizar(ConsultaCitasDto)
-2020-11-24 09:03:10.401 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	c.g.f.f.c.GestionAutorizacionController:
-	{GET /gestionAutorizacion/{pacNumero}}: getGestionAutorizacionCita(long)
-2020-11-24 09:03:10.407 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	c.g.f.f.c.ListasController:
-	{GET /listas/sedes}: getSedes()
-	{GET /listas/especialidades}: getEspecialidades()
-	{GET /listas/citasAuto}: paginas(int,int)
-	{GET /listas/medicos}: getMedicos()
-	{GET /listas/ubicacionSedes}: getUbicacionSedes()
-	{GET /listas/polizas}: getPolizas()
-	{GET /listas/convenios}: getConvenios()
-	{GET /listas/servicios}: getServicios()
-	{GET /listas/subespecialidades}: getSubEspecialidades()
-	{GET /listas/citasAutorizadas}: getCitasAutorizadas()
-	{GET /listas/motivoNoAutoriza}: getMotivoNoAutoriza()
-2020-11-24 09:03:10.409 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	c.g.f.f.c.OrdenMedicaController:
-	{GET /OrdenMedica/{pacPacRut}}: getOrdenMedica(String)
-	{POST /OrdenMedica}: createOrdenMedica(OrdenMedicaDto)
-	{POST /OrdenMedica/getOrdenes}: getOrdenes(ConsultaOrdenMedicaDto)
-	{GET /OrdenMedica/validarGestionContinuidad/{ormIdOrdmNumero}}: validarGestionContinuidadOrden(long)
-2020-11-24 09:03:10.410 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	c.g.f.f.c.RecaudoController:
-	{POST /recaudo/consultaValoresPrestaciones}: consultaValoresPrestaciones(ConsultaValoresDTO)
-2020-11-24 09:03:10.414 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	o.s.b.a.w.s.e.BasicErrorController:
-	{ /error}: error(HttpServletRequest)
-	{ /error, produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
-2020-11-24 09:03:10.417 DEBUG 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 23 mappings in 'requestMappingHandlerMapping'
-2020-11-24 09:03:10.422  INFO 7560 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-11-24 09:03:10.424 DEBUG 7560 --- [restartedMain] o.s.w.s.h.BeanNameUrlHandlerMapping      : Detected 0 mappings in 'beanNameHandlerMapping'
-2020-11-24 09:03:10.476 DEBUG 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2020-11-24 09:03:10.506 DEBUG 7560 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2020-11-24 09:03:10.547  INFO 7560 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
-2020-11-24 09:03:10.700  INFO 7560 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2020-11-24 09:03:10.740  INFO 7560 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8091 (http) with context path '/fsfb-api'
-2020-11-24 09:03:10.742  INFO 7560 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2020-11-24 09:03:13.813  INFO 7560 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-11-24 09:03:13.822  INFO 7560 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-11-24 09:03:14.109  WARN 7560 --- [restartedMain] o.h.dialect.function.TemplateRenderer    : HHH000174: Function template anticipated 4 arguments, but 1 arguments encountered
-2020-11-24 09:03:14.390  INFO 7560 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2020-11-24 09:03:14.397 TRACE 7560 --- [restartedMain] o.s.w.s.resource.ResourceUrlProvider     : No resource handling mappings found
-2020-11-24 09:03:14.400  INFO 7560 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : Started FsfbApiApplication in 8.303 seconds (JVM running for 9.275)
-2020-11-24 09:03:37.686  INFO 7560 --- [http-nio-8091-exec-2] o.a.c.c.C.[.[localhost].[/fsfb-api]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-11-24 09:03:37.686  INFO 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-11-24 09:03:37.687 TRACE 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.multipart.support.StandardServletMultipartResolver@48ac9361
-2020-11-24 09:03:37.688 TRACE 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : No LocaleResolver 'localeResolver': using default [AcceptHeaderLocaleResolver]
-2020-11-24 09:03:37.689 TRACE 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : No ThemeResolver 'themeResolver': using default [FixedThemeResolver]
-2020-11-24 09:03:37.691 TRACE 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : No RequestToViewNameTranslator 'viewNameTranslator': using default [DefaultRequestToViewNameTranslator]
-2020-11-24 09:03:37.693 TRACE 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : No FlashMapManager 'flashMapManager': using default [SessionFlashMapManager]
-2020-11-24 09:03:37.694 DEBUG 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2020-11-24 09:03:37.694  INFO 7560 --- [http-nio-8091-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
-2020-11-24 09:03:37.850 TRACE 7560 --- [http-nio-8091-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/fsfb-api/citas/porautorizar", parameters={}, headers={masked} in DispatcherServlet 'dispatcherServlet'
-2020-11-24 09:03:37.851 TRACE 7560 --- [http-nio-8091-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/fsfb-api/OrdenMedica/getOrdenes", parameters={}, headers={masked} in DispatcherServlet 'dispatcherServlet'
-2020-11-24 09:03:37.850 TRACE 7560 --- [http-nio-8091-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/fsfb-api/OrdenMedica/getOrdenes", parameters={}, headers={masked} in DispatcherServlet 'dispatcherServlet'
-2020-11-24 09:03:37.854 TRACE 7560 --- [http-nio-8091-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.global.fsfb.fsfbapi.controllers.CitaController#consultarCitasPorAutorizar(ConsultaCitasDto)
-2020-11-24 09:03:37.856 TRACE 7560 --- [http-nio-8091-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.global.fsfb.fsfbapi.controllers.OrdenMedicaController#getOrdenes(ConsultaOrdenMedicaDto)
-2020-11-24 09:03:37.856 TRACE 7560 --- [http-nio-8091-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to co.global.fsfb.fsfbapi.controllers.OrdenMedicaController#getOrdenes(ConsultaOrdenMedicaDto)
-2020-11-24 09:03:37.935 TRACE 7560 --- [http-nio-8091-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [co.global.fsfb.fsfbapi.dto.ConsultaCitasDto@6654531c]
-2020-11-24 09:03:37.935 TRACE 7560 --- [http-nio-8091-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [co.global.fsfb.fsfbapi.dto.ConsultaOrdenMedicaDto@6915178e]
-2020-11-24 09:03:37.936 TRACE 7560 --- [http-nio-8091-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [co.global.fsfb.fsfbapi.dto.ConsultaOrdenMedicaDto@41ca5cd8]
-2020-11-24 09:03:37.942 TRACE 7560 --- [http-nio-8091-exec-4] .w.s.m.m.a.ServletInvocableHandlerMethod : Arguments: [co.global.fsfb.fsfbapi.dto.ConsultaCitasDto@6654531c]
-2020-11-24 09:03:37.942 TRACE 7560 --- [http-nio-8091-exec-5] .w.s.m.m.a.ServletInvocableHandlerMethod : Arguments: [co.global.fsfb.fsfbapi.dto.ConsultaOrdenMedicaDto@41ca5cd8]
-2020-11-24 09:03:37.943 TRACE 7560 --- [http-nio-8091-exec-6] .w.s.m.m.a.ServletInvocableHandlerMethod : Arguments: [co.global.fsfb.fsfbapi.dto.ConsultaOrdenMedicaDto@6915178e]
-2020-11-24 09:03:38.945 DEBUG 7560 --- [http-nio-8091-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
-2020-11-24 09:03:38.946 TRACE 7560 --- [http-nio-8091-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@32879b75, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@44730596, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@226a605f, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@17805d81, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@19d23037, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@45d1d92e, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@34c82153, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@21b11e1e, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@296ac197, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@62b9653d, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@170e1280, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@3ee6bf91, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@417fb7a3, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@6846a23c, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@fbb37a6, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@42a0bf7, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@3854667e, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@65de640a, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@338e6910, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@67afa925, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@7cd35438, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@6abb919c, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@2a3da332, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@30c1d1d1, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@56552165, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@60546d42, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@27377649, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@19c66427]]
-2020-11-24 09:03:38.950 DEBUG 7560 --- [http-nio-8091-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
-2020-11-24 09:03:38.950 TRACE 7560 --- [http-nio-8091-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@75922983, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@1aba1206, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@36141725, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@3f44eaff, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@5bfe12a5, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@119e01fe, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@7a581d7, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@1f2e80ce, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@346ec2b4, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@559eb436, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@7e1e3c6b, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@15ddfb96, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@5764e0fb, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@777bc125, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@788946c5, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@2721309, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@72e14884, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@5bbacd14, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@69b707c8, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@7bcfbbac, co.global.fsfb.fsfbapi.dto.ResultadoOrdenMedicaDto@3926939]]
-2020-11-24 09:03:38.978 TRACE 7560 --- [http-nio-8091-exec-5] o.s.web.servlet.DispatcherServlet        : No view rendering, null ModelAndView returned.
-2020-11-24 09:03:38.978 DEBUG 7560 --- [http-nio-8091-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK, headers={masked}
-2020-11-24 09:03:38.982 TRACE 7560 --- [http-nio-8091-exec-6] o.s.web.servlet.DispatcherServlet        : No view rendering, null ModelAndView returned.
-2020-11-24 09:03:38.982 DEBUG 7560 --- [http-nio-8091-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK, headers={masked}
-2020-11-24 09:03:44.056 DEBUG 7560 --- [http-nio-8091-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
-2020-11-24 09:03:44.056 TRACE 7560 --- [http-nio-8091-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@375721b4, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@571ee3a3, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@6ed75cfc, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@7de79915, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@73334d9c, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@5310aba2, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@7743d80, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@461a334a, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@2f2cd9b8, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@79373a44, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@5f8980df, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@481e7807, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@13699a5, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@419366dd, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@528f9948, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@696a1d5e, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@5c244a67, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@65b6ab0, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@28b0e6ea, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@11898e4f, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@6f80996b, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@32d360c1, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@1dfb47c7, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@40dd49c1, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@2b7ddb70, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@28163b6, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@4583d95e, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@6f3a136e, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@2a59f3a2, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@23ccb98c, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@785edd82, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@47c00084, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@22e13f3d, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@64a7e234, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@6a1b91ef, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@2d187808, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@62ba241, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@5dc646f2, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@6be4204c, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@552cd00, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@5eb05e41, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@31ae62b3, co.global.fsfb.fsfbapi.dto.ResultadoCitaDto@7b02c28a]]
-2020-11-24 09:03:44.099 TRACE 7560 --- [http-nio-8091-exec-4] o.s.web.servlet.DispatcherServlet        : No view rendering, null ModelAndView returned.
-2020-11-24 09:03:44.099 DEBUG 7560 --- [http-nio-8091-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK, headers={masked}
-2020-11-24 09:04:36.273  INFO 7560 --- [Thread-183] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2020-11-24 09:04:36.275  INFO 7560 --- [Thread-183] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-11-24 09:04:36.277  INFO 7560 --- [Thread-183] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2020-11-24 09:04:37.838  INFO 7560 --- [Thread-183] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2020-11-24 09:04:37.941  INFO 7560 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : Starting FsfbApiApplication on PREPRODPORTAL with PID 7560 (D:\siscomputo\Backups\fsfb-api\fsfb-api\target\classes started by Administrator in D:\siscomputo\Backups\fsfb-api\fsfb-api)
-2020-11-24 09:04:37.941  INFO 7560 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : No active profile set, falling back to default profiles: default
-2020-11-24 09:04:38.188  INFO 7560 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2020-11-24 09:04:38.189  INFO 7560 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1ms. Found 0 JPA repository interfaces.
-2020-11-24 09:04:38.298  INFO 7560 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8091 (http)
-2020-11-24 09:04:38.299  INFO 7560 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-11-24 09:04:38.299  INFO 7560 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
-2020-11-24 09:04:38.351  INFO 7560 --- [restartedMain] o.a.c.c.C.[.[localhost].[/fsfb-api]      : Initializing Spring embedded WebApplicationContext
-2020-11-24 09:04:38.351  INFO 7560 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 407 ms
-2020-11-24 09:04:38.399  INFO 7560 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-11-24 09:04:38.402  INFO 7560 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2020-11-24 09:04:39.955  INFO 7560 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2020-11-24 09:04:39.986  WARN 7560 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-11-24 09:04:39.988  INFO 7560 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-11-24 09:04:39.994  INFO 7560 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
-2020-11-24 09:04:40.037 DEBUG 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2020-11-24 09:04:40.043 TRACE 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 
-	o.s.b.a.w.s.e.BasicErrorController:
-	{ /error}: error(HttpServletRequest)
-	{ /error, produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
-2020-11-24 09:04:40.045 DEBUG 7560 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2020-11-24 09:04:40.055 DEBUG 7560 --- [restartedMain] o.s.w.s.h.BeanNameUrlHandlerMapping      : Detected 0 mappings in 'beanNameHandlerMapping'
-2020-11-24 09:04:40.059 DEBUG 7560 --- [restartedMain] o.s.w.s.c.annotation.WebMvcConfigurer    : Default resource handling disabled
-2020-11-24 09:04:40.063 DEBUG 7560 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2020-11-24 09:04:40.109  INFO 7560 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2020-11-24 09:04:40.123  INFO 7560 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8091 (http) with context path '/fsfb-api'
-2020-11-24 09:04:40.123  INFO 7560 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2020-11-24 09:04:40.124  INFO 7560 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2020-11-24 09:04:40.127 TRACE 7560 --- [restartedMain] o.s.w.s.resource.ResourceUrlProvider     : No resource handling mappings found
-2020-11-24 09:04:40.127  INFO 7560 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : Started FsfbApiApplication in 2.219 seconds (JVM running for 95.003)
-2020-11-24 09:04:40.136  INFO 7560 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+2021-03-04 14:46:29.814  INFO 16856 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : Starting FsfbApiApplication on DESKTOP-69DD2UP with PID 16856 (C:\Repositorios\fsfb\BackEnd\fsfb-api\target\classes started by Felipe in C:\Repositorios\fsfb\BackEnd\fsfb-api)
+2021-03-04 14:46:29.833  INFO 16856 --- [restartedMain] c.g.fsfb.fsfbapi.FsfbApiApplication      : No active profile set, falling back to default profiles: default
+2021-03-04 14:46:29.956  INFO 16856 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Felipe\.m2\repository\com\oracle\ojdbc\ojdbc8\19.3.0.0\ojdbc8-19.3.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Felipe/.m2/repository/com/oracle/ojdbc/ojdbc8/19.3.0.0/oraclepki.jar
+2021-03-04 14:46:29.957  INFO 16856 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Felipe\.m2\repository\com\oracle\ojdbc\oraclepki\19.3.0.0\oraclepki-19.3.0.0.jar referenced one or more files that do not exist: file:/C:/Users/Felipe/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_core.jar,file:/C:/Users/Felipe/.m2/repository/com/oracle/ojdbc/oraclepki/19.3.0.0/osdt_cert.jar,file:/C:/Users/Felipe/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_core.jar,file:/C:/Users/Felipe/.m2/repository/com/oracle/ojdbc/oraclepki/oracle.osdt/osdt_cert.jar
+2021-03-04 14:46:29.957  INFO 16856 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-04 14:46:30.379  WARN 16856 --- [restartedMain] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [co.global.fsfb.fsfbapi.FsfbApiApplication]; nested exception is java.lang.IllegalStateException: Failed to introspect annotated methods on class org.springframework.boot.web.servlet.support.SpringBootServletInitializer
+2021-03-04 14:46:30.413 ERROR 16856 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [co.global.fsfb.fsfbapi.FsfbApiApplication]; nested exception is java.lang.IllegalStateException: Failed to introspect annotated methods on class org.springframework.boot.web.servlet.support.SpringBootServletInitializer
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:188) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:319) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:236) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:280) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:96) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:707) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:533) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+	at co.global.fsfb.fsfbapi.FsfbApiApplication.main(FsfbApiApplication.java:16) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.3.1.RELEASE.jar:2.3.1.RELEASE]
+Caused by: java.lang.IllegalStateException: Failed to introspect annotated methods on class org.springframework.boot.web.servlet.support.SpringBootServletInitializer
+	at org.springframework.core.type.StandardAnnotationMetadata.getAnnotatedMethods(StandardAnnotationMetadata.java:162) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.retrieveBeanMethodMetadata(ConfigurationClassParser.java:402) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:325) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:249) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:206) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:174) ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	... 18 common frames omitted
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [org.springframework.boot.web.servlet.support.SpringBootServletInitializer] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:481) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:455) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	at org.springframework.core.type.StandardAnnotationMetadata.getAnnotatedMethods(StandardAnnotationMetadata.java:151) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	... 23 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/servlet/ServletContext
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3166) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2309) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:463) ~[spring-core-5.2.7.RELEASE.jar:5.2.7.RELEASE]
+	... 25 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.servlet.ServletContext
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521) ~[na:na]
+	... 29 common frames omitted
 
-==========================
-CONDITION EVALUATION DELTA
-==========================
-
-
-Positive matches:
------------------
-
-   WebMvcAutoConfiguration matched:
-      - @ConditionalOnClass found required classes 'javax.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
-      - found 'session' scope (OnWebApplicationCondition)
-      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; SearchStrategy: all) did not find any beans (OnBeanCondition)
-
-   WebMvcAutoConfiguration#formContentFilter matched:
-      - @ConditionalOnProperty (spring.mvc.formcontent.filter.enabled) matched (OnPropertyCondition)
-      - @ConditionalOnMissingBean (types: org.springframework.web.filter.FormContentFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
-
-   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#defaultViewResolver matched:
-      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.InternalResourceViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
-
-   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#requestContextFilter matched:
-      - @ConditionalOnMissingBean (types: org.springframework.web.context.request.RequestContextListener,org.springframework.web.filter.RequestContextFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
-
-   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#viewResolver matched:
-      - @ConditionalOnBean (types: org.springframework.web.servlet.ViewResolver; SearchStrategy: all) found beans 'defaultViewResolver', 'beanNameViewResolver', 'mvcViewResolver'; @ConditionalOnMissingBean (names: viewResolver types: org.springframework.web.servlet.view.ContentNegotiatingViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
-
-
-Negative matches:
------------------
-
-   WebMvcAutoConfiguration#hiddenHttpMethodFilter:
-      Did not match:
-         - @ConditionalOnProperty (spring.mvc.hiddenmethod.filter.enabled) did not find property 'enabled' (OnPropertyCondition)
-
-   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#beanNameViewResolver:
-      Did not match:
-         - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) found beans of type 'org.springframework.web.servlet.view.BeanNameViewResolver' beanNameViewResolver (OnBeanCondition)
-
-   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#localeResolver:
-      Did not match:
-         - @ConditionalOnProperty (spring.mvc.locale) did not find property 'locale' (OnPropertyCondition)
-
-
-Exclusions:
------------
-
-    None
-
-
-Unconditional classes:
-----------------------
-
-    None
-
-
-
-2020-11-24 09:04:42.246  INFO 7560 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-11-24 09:04:42.248  INFO 7560 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-11-24 09:04:48.349  INFO 7560 --- [RMI TCP Connection(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-11-24 09:04:48.369  INFO 7560 --- [RMI TCP Connection(10)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2020-11-24 09:04:48.369  INFO 7560 --- [RMI TCP Connection(10)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-11-24 09:04:48.370  INFO 7560 --- [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...

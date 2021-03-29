@@ -5,6 +5,7 @@ import co.global.fsfb.fsfbapi.dto.ConsultaCitasDto;
 import co.global.fsfb.fsfbapi.dto.ResultadoCitaDto;
 import co.global.fsfb.fsfbapi.models.CaCitasGestionadas;
 import co.global.fsfb.fsfbapi.models.CaUbicacionSedes;
+import co.global.fsfb.fsfbapi.persistencia.Conexion;
 import co.global.fsfb.fsfbapi.repositories.ICaUbicacionSedesRepository;
 import co.global.fsfb.fsfbapi.repositories.ICitaRepository;
 import co.global.fsfb.fsfbapi.services.ICitaService;
@@ -16,6 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -91,7 +95,6 @@ public class CitaService implements ICitaService {
             }
             SQL.append(" ORDER BY \"Fecha Cita\" desc,\n         \"Hora Cita\" desc,\n         \"Tipo de Documento homologado\" desc,\n         \"Documento\" desc   \n");
 
-
             Query query = entityManager.createNativeQuery(SQL.toString())
                     .setParameter("FECHAINICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHAFINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
@@ -99,7 +102,6 @@ public class CitaService implements ICitaService {
             if (consultaCitasDto.getEstado() != null && consultaCitasDto.getEstado() != 1) {
                 query.setParameter("ESTADO", (Object) consultaCitasDto.getEstado());
             }
-            LOG.log(Level.WARNING, "Entra consulta citas 3");
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodCentroAten())) {
                 query.setParameter("SEDE", (Object) consultaCitasDto.getCodCentroAten());
             }
@@ -180,10 +182,8 @@ public class CitaService implements ICitaService {
                 resultadoCitaDto.setTipoConvenio((object[39] != null) ? object[39].toString().trim() : null);
                 resultadoCitaDtos.add(resultadoCitaDto);
             });
-            LOG.log(Level.WARNING, "Entra consulta citas 4");
             return resultadoCitaDtos;
         } catch (Exception e) {
-            LOG.log(Level.INFO, e.toString());
             LOG.log(Level.SEVERE, "error", e);
         }
         return null;
@@ -312,9 +312,186 @@ public class CitaService implements ICitaService {
             resultadoCitaDto.setUbicacion(object[34] != null ? object[34].toString().trim() : null);
             resultadoCitaDto.setLetraCodCentroAten(object[35] != null ? object[35].toString().trim() : null);
             resultadoCitaDto.setTipoConvenio(object[36] != null ? object[36].toString().trim() : null);
+            resultadoCitaDto.setNroFormulario(object[37] != null ? object[37].toString().trim() : null);
             resultadoCitaDtos.add(resultadoCitaDto);
         });
         return !resultadoCitaDtos.isEmpty() ? resultadoCitaDtos.get(0) : null;
 
+    }
+
+    @Override
+    public List<ResultadoCitaDto> consultarCitas2(ConsultaCitasDto consultaCitasDto) {
+        Connection conn = null;
+        try {
+            LOG.log(Level.INFO, "Conexion directa inicio - query citas");
+
+            Conexion conexion = new Conexion();
+            conn = conexion.obtener();
+
+            StringBuilder SQL = new StringBuilder("SELECT\n"
+                    + "DP.DVP_PRO_GLOSA \"ciudad\" ,\n"
+                    + "CIT.CG_ID_CITA_NUMERO \"id_cita\",\n"
+                    + "EC.EC_IDCODIGO \"cod estado_cita_ca_descripcion\",\n"
+                    + "EC.EC_DESCRIPCION \"estado_cita_ca_descripcion\",\n"
+                    + "CIT.CG_ASISTENCIA \"asistencia\",\n"
+                    + "PAC.PAC_PAC_NUMERO \"pacNum\",\n"
+                    + "TRIM(PAC.PAC_PAC_NOMBRE)||' '||TRIM(PAC.PAC_PAC_APELLPATER)||' '||TRIM(PAC.PAC_PAC_APELLMATER) \"Nombre Completo\",\n"
+                    + "PAC.PAC_PAC_TIPOIDENTCODIGO \"Codigo Tipo de Documento\",\n"
+                    + "TIP.TIPIDAV \"Tipo de Documento homologado\",\n"
+                    + "PAC.PAC_PAC_RUT \"Documento\",\n"
+                    + "PAC.PAC_PAC_FONO \"Telefono\",\n"
+                    + "PAC.DONURL \"Correo Electronico\",\n"
+                    + "AGEND.PCA_AGE_HORACITAC \"Hora Cita\",\n"
+                    + "AGEND.PCA_AGE_FECHACITAC \"Fecha Cita\",\n"
+                    + "SER.SER_SER_CODIGO \"codigo servicio\",\n"
+                    + "SER.SER_SER_DESCRIPCIO \"Servicio\",\n"
+                    + "AGEND.PCA_AGE_CODIGPROFE \"codigo Profesional\",\n"
+                    + "AGEND.PCA_AGE_OBJETO \"Consultorio\",\n"
+                    + "PREST.PRE_PRE_CODIGO \"codigo Prestacion\",\n"
+                    + "PREST.PRE_PRE_DESCRIPCIO \"Prestacion\",\n"
+                    + "CA.CODIGOINTERNOCENTRO \"Codigo Centro Operativo\",\n"
+                    + "CA.NOMBRECENTROATEN \"Centro Operativo\",\n"
+                    + "CONV.CON_CON_CODIGO \"Codigo Convenio\",\n"
+                    + "CONV.CON_CON_DESCRIPCIO \"Convenio\",\n"
+                    + "AGEND.PCA_AGE_CODIGRECEP \"Codigo usuario\",\n"
+                    + "AGEND.PCA_AGE_FECHADIGIT \"Fecha de Asignacion\",\n"
+                    + "(SELECT MAX(DIRECCION) FROM admsalud.log_centrosatenc@ISIS DIR\n"
+                    + "WHERE CA.CODIGOINTERNOCENTRO =DIR.CODIGOINTERNOCENTRO ) \"Direccion Centro Operativo\",\n"
+                    + "CA.TELEFONO \"Telefono Centro Operativo\",\n"
+                    + "CA.DVP_PRO_CODIGO \"Ciudad\",\n"
+                    + "ESPE.SER_ESP_CODIGO \"Cod Especialidad\",\n"
+                    + "ESPE.SER_ESP_DESCRIPCIO \"Especialidad\",\n"
+                    + "SER.SER_SER_CODSUBESPE \"Cod subespecialidad\",\n"
+                    + "SUBESPE.SER_SUB_DESCRIPCIO \"Subespecialidad\",\n"
+                    + "funchspgetprof@isis(1,AGEND.PCA_AGE_CODIGPROFE) \"Profesional\",\n"
+                    + "admsalud.glbgetnomusr@isis(AGEND.PCA_AGE_CODIGRECEP) \"Usuario que asigna cita\",\n"
+                    + "(SELECT MAX(SER_LUG_UBICACION)\n"
+                    + "FROM ADMSALUD.SER_LUGARES@ISIS LUG,\n"
+                    + "ADMSALUD.SER_RECASISTEN@ISIS REC\n"
+                    + "WHERE OBJ.SER_OBJ_UBICACION = LUG.SER_LUG_CODIGO\n"
+                    + "AND OBJ.CODIGOCENTROATEN = LUG.CODIGOCENTROATEN\n"
+                    + "AND OBJ.SER_REC_TIPO = REC.SER_REC_TIPO\n"
+                    + "AND LUG.SER_LUG_TIPOLUGAR= REC.SER_REC_TIPOLUGAR) \"ubicacion\",\n"
+                    + "CA.CODIGOCENTROATEN \"Letra Codigo Centro Operativo\",\n"
+                    + "UBIC.UBICACION \"ubicacion sede\" ,\n"
+                    + "UBIC.DIRECCION \"direccion\" ,\n"
+                    + "CONV.CON_TIPOCONVECOD \"TipoConvenio\"\n"
+                    + "FROM ADMSALUD.PCA_AGENDA@ISIS AGEND\n"
+                    + "\n"
+                    + "INNER JOIN ADMSALUD.PAC_PACIENTE@ISIS PAC\n"
+                    + "ON AGEND.PCA_AGE_NUMERPACIE = PAC.PAC_PAC_NUMERO\n"
+                    + "\n"
+                    + "LEFT JOIN ADMSALUD.TAB_TIPOIDENT@ISIS TIP\n"
+                    + "ON PAC.PAC_PAC_TIPOIDENTCODIGO = TIP.TAB_TIPOIDENTCODIGO\n"
+                    + "\n"
+                    + "INNER JOIN ADMSALUD.SER_SERVICIOS@ISIS SER\n"
+                    + "ON AGEND.PCA_AGE_CODIGSERVI = SER.SER_SER_CODIGO\n"
+                    + "\n"
+                    + "LEFT JOIN ADMSALUD.SER_ESPECIALI@ISIS ESPE\n"
+                    + "ON ESPE.SER_ESP_CODIGO = SER.SER_SER_CODIGESPEC\n"
+                    + "\n"
+                    + "LEFT JOIN ADMSALUD.SER_SUBESPECIA@ISIS SUBESPE\n"
+                    + "ON SER.SER_SER_CODSUBESPE= SUBESPE.SER_SUB_CODIGO\n"
+                    + "AND SUBESPE.SER_ESP_CODIGO=ESPE.SER_ESP_CODIGO\n"
+                    + "\n"
+                    + "INNER JOIN ADMSALUD.RPA_FORCIT@ISIS FORCIT\n"
+                    + "ON AGEND.PCA_AGE_TIPOFORMU = FORCIT.RPA_FOR_TIPOFORMU\n"
+                    + "AND AGEND.PCA_AGE_NUMERFORMU = FORCIT.RPA_FOR_NUMERFORMU\n"
+                    + "AND AGEND.PCA_AGE_FECHACITAC = FORCIT.RPA_FCI_FECHACITAC\n"
+                    + "AND AGEND.PCA_AGE_HORACITAC = FORCIT.RPA_FCI_HORACITAC\n"
+                    + "\n"
+                    + "\n"
+                    + "LEFT JOIN ADMSALUD.CON_CONVENIO@ISIS CONV\n"
+                    + "ON FORCIT.CON_CON_CODIGO = CONV.CON_CON_CODIGO\n"
+                    + "\n"
+                    + "LEFT JOIN ADMSALUD.PRE_PRESTACION@ISIS PREST\n"
+                    + "ON FORCIT.PRE_PRE_CODIGO = PREST.PRE_PRE_CODIGO\n"
+                    + "\n"
+                    + "\n"
+                    + "LEFT JOIN ADMSALUD.TAB_CENTROSATENC@ISIS CA\n"
+                    + "ON AGEND.PCA_AGE_LUGAR= CA.CODIGOCENTROATEN\n"
+                    + "\n"
+                    + "\n"
+                    + "INNER JOIN ADMSALUD.SER_OBJETOS@ISIS OBJ\n"
+                    + "ON AGEND.PCA_AGE_TIPOOBJET = OBJ.SER_REC_TIPO\n"
+                    + "AND AGEND.PCA_AGE_OBJETO = OBJ.SER_OBJ_CODIGO\n"
+                    + "\n"
+                    + "\n"
+                    + "INNER JOIN CA_UBICACION_SEDES UBIC\n"
+                    + "ON AGEND.PCA_AGE_OBJETO = UBIC.CONSULTORIO\n"
+                    + "LEFT JOIN CA_CITAS_GESTIONADAS CIT\n"
+                    + "ON TRIM(AGEND.PCA_AGE_NUMERPACIE) = TRIM(CIT.PAC_PAC_NUMERO)\n"
+                    + "AND AGEND.PCA_AGE_FECHACITAC = CIT.PCA_AGE_FECHACITAC AND\n"
+                    + "AGEND.PCA_AGE_HORACITAC = CIT.PCA_AGE_HORACITAC\n"
+                    + "LEFT JOIN CA_ESTADOS_CITAS EC\n"
+                    + "ON CIT.EC_IDCODIGO = EC.EC_IDCODIGO\n"
+                    + "LEFT JOIN ADMSALUD.DVP_PROVINCIA@ISIS DP\n"
+                    + "ON CA.DVP_PRO_CODIGO = DP.DVP_PRO_CODIGO\n"
+                    + "\n"
+                    + "WHERE AGEND.PCA_AGE_FECHACITAC BETWEEN to_Date('" + consultaCitasDto.getFechaInicial() + "','dd/MM/yyyy') AND  to_Date('" + consultaCitasDto.getFechaFinal() + "','dd/MM/yyyy')");
+            if (consultaCitasDto.getEstado() != null) {
+                SQL.append((consultaCitasDto.getEstado() == 1) ? " AND EC.EC_IDCODIGO IS NULL" : " AND EC.EC_IDCODIGO = '" + consultaCitasDto.getEstado() + "'");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodCentroAten())) {
+                SQL.append(" AND CA.CODIGOINTERNOCENTRO = '" + consultaCitasDto.getCodCentroAten() + "'");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodEspecialidad())) {
+                SQL.append(" AND ESPE.SER_ESP_CODIGO = '" + consultaCitasDto.getCodEspecialidad() + "'");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodSubEspecialidad())) {
+                SQL.append(" AND SUBESPE.SER_SUB_CODIGO = '" + consultaCitasDto.getCodSubEspecialidad() + "'");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodServicio())) {
+                SQL.append(" AND SER.SER_SER_CODIGO = '" + consultaCitasDto.getCodServicio() + "'");
+            }
+            if (consultaCitasDto.getConvenios() != null && !consultaCitasDto.getConvenios().isEmpty()) {
+                final StringBuilder finalStringBuilder;
+                final StringBuilder stringBuilder = finalStringBuilder = new StringBuilder();
+                consultaCitasDto.getConvenios().forEach(v -> finalStringBuilder.append(",'" + v + "'"));
+                final String str = stringBuilder.substring(1);
+                SQL.append(" AND CONV.CON_CON_CODIGO IN (:CODCON)".replace(":CODCON", str));
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getTipoDocId())) {
+                SQL.append(" AND TIP.TAB_TIPOIDENTCODIGO = '" + consultaCitasDto.getTipoDocId() + "'");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getNumDocId())) {
+                SQL.append(" AND TRIM(PAC.PAC_PAC_RUT) = '" + consultaCitasDto.getNumDocId() + "'");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getNombres())) {
+                SQL.append(" AND UPPER(TRIM(PAC.PAC_PAC_NOMBRE)) LIKE (CONCAT('%', CONCAT('" + consultaCitasDto.getNombres() + "', '%')))");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getPrimerApellido())) {
+                SQL.append(" AND UPPER(TRIM(PAC.PAC_PAC_APELLPATER)) LIKE (CONCAT('%', CONCAT('" + consultaCitasDto.getPrimerApellido() + "', '%')))");
+            }
+            if (!Strings.isEmpty((CharSequence) consultaCitasDto.getSegundoApellido())) {
+                SQL.append(" AND UPPER(TRIM(PAC.PAC_PAC_APELLMATER)) LIKE (CONCAT('%', CONCAT('" + consultaCitasDto.getSegundoApellido() + "', '%')))");
+            }
+            if (consultaCitasDto.getNombreSede() != null && !Strings.isEmpty((CharSequence) consultaCitasDto.getNombreSede())) {
+                SQL.append(" AND TRIM(AGEND.PCA_AGE_OBJETO) IN ('" + consultaCitasDto.getNombreSede() + "')\n");
+            }
+            final List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
+
+            Statement st = conn.createStatement();
+            st.setFetchSize(200);
+            ResultSet rs = st.executeQuery(SQL.toString());
+            while (rs.next()) {
+              
+
+            }
+            LOG.log(Level.INFO, "Termino consulta- query citas");
+            return resultadoCitaDtos;
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.toString());
+            LOG.log(Level.SEVERE, "error", e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (Exception e) {
+                }
+
+            }
+        }
+        return null;
     }
 }

@@ -2,14 +2,11 @@ package co.global.fsfb.fsfbapi.services.impl;
 
 import co.global.fsfb.fsfbapi.dto.CitasAutorizadasDto;
 import co.global.fsfb.fsfbapi.dto.ListaDto;
-import co.global.fsfb.fsfbapi.models.CaCitasGestionadas;
 import co.global.fsfb.fsfbapi.repositories.ICitaRepository;
 import co.global.fsfb.fsfbapi.repositories.ICitaRepository.PruebaCita;
 import co.global.fsfb.fsfbapi.services.IListaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -19,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.FlushModeType;
 
 /**
  *
@@ -45,7 +43,6 @@ public class ListaService implements IListaService {
     public List<ListaDto> getList(String query) {
         List<Object[]> objects = entityManager.createNativeQuery(query).getResultList();
         List<ListaDto> lista = new ArrayList();
-        LOG.log(Level.INFO, "INICIO CONSULTA DE MEDICOS");
         try {
             objects.stream().forEach(i -> {
                 ListaDto aux = new ListaDto();
@@ -58,8 +55,6 @@ public class ListaService implements IListaService {
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "error", e);
         }
-        LOG.log(Level.INFO, "FIN CONSULTA DE MEDICOS");
-        LOG.log(Level.INFO, "LISTA SIZE: " + lista.size());
         return lista;
     }
 
@@ -91,13 +86,18 @@ public class ListaService implements IListaService {
     public List<ListaDto> consultarMedicos(String query) {
         List<Object[]> objects = entityManager.createNativeQuery(query).getResultList();
         List<ListaDto> lista = new ArrayList();
-        LOG.log(Level.INFO, "INICIO CONSULTA DE MEDICOS");
         try {
-            lista.add(new ListaDto());
+            objects.stream().forEach(i -> {
+                ListaDto aux = new ListaDto();
+                aux.setId(i[0].toString() != null ? i[0].toString().trim() : null);
+                aux.setDescripcion(i[1].toString() != null ? i[1].toString().trim() : i[1].toString());
+                aux.setOtro(i[2] != null ? i[2].toString().trim() : null);
+                aux.setOtros(i.length > 3 && i[3] != null ? i[3].toString().trim() : null);
+                lista.add(aux);
+            });
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "error", e);
         }
-      
         return lista;
     }
 }

@@ -34,6 +34,12 @@ public class CitaController {
             @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto) {
         return ResponseEntity.ok(citaDelegate.consultarCitas(consultaCitasDto));
     }
+    
+    @PostMapping("/consultarCitas2")
+    public ResponseEntity<List<ResultadoCitaDto>> consultarCitas2(
+            @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto) {
+        return ResponseEntity.ok(citaDelegate.consultarCitas2(consultaCitasDto));
+    }
 
     @PostMapping("/porautorizar")
     public ResponseEntity<List<ResultadoCitaDto>> consultarCitasPorAutorizar(

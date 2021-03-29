@@ -47,7 +47,16 @@ public class ResultadoCitaDto {
     private String ubicacionSede;
     private String direccionSede;
     private String ciudad;
+    private String nroFormulario;
 
+    public String getNroFormulario() {
+        return nroFormulario;
+    }
+
+    public void setNroFormulario(String nroFormulario) {
+        this.nroFormulario = nroFormulario;
+    }
+    
     public Long getIdCita() {
         return idCita;
     }
