@@ -16,6 +16,8 @@ public interface ICitaService {
     List<ResultadoCitaDto> consultarCitas(ConsultaCitasDto consultaCitasDto);
 
     List<ResultadoCitaDto> consultarCitasPorAutorizar(ConsultaCitasDto consultaCitasDto);
+    
+    List<ResultadoCitaDto> consultarCitasPorAutorizarPaginate(ConsultaCitasDto consultaCitasDto);
 
     void updateAsistencia(Long citaId, String estado);
 

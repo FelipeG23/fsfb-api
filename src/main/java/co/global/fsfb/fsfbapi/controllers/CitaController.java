@@ -46,6 +46,15 @@ public class CitaController {
             @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto) {
         return ResponseEntity.ok(citaDelegate.consultarCitasPorAutorizar(consultaCitasDto));
     }
+    
+    @PostMapping("/porautorizarPaginate")
+    
+    public ResponseEntity<List<ResultadoCitaDto>> porautorizarPaginate(
+            
+            @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto) {
+        
+        return ResponseEntity.ok(citaDelegate.consultarCitasPorAutorizarPaginate(consultaCitasDto));
+    }
 
     @PutMapping("/{id}/update-asistencia")
     public ResponseEntity updateAsistencia(@PathVariable("id") Long citaId, @RequestBody @NotNull String estado) {

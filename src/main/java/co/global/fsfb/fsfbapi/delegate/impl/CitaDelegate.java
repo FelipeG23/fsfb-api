@@ -48,4 +48,9 @@ public class CitaDelegate implements ICitaDelegate {
         return citaService.consultarCitas2(consultaCitasDto);
     }
 
+    @Override
+    public List<ResultadoCitaDto> consultarCitasPorAutorizarPaginate(ConsultaCitasDto consultaCitasDto) {
+         return citaService.consultarCitasPorAutorizarPaginate(consultaCitasDto);
+    }
+
 }

@@ -31,10 +31,20 @@ public class ConsultaCitasDto {
     private String codServicio;
     private Integer estado;
     private Integer idCita;
-
+    private Integer page;
     private String nombreSede;
     private String tipoConvenio;
 
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+    
+    
+    
     public String getFechaInicial() {
         return fechaInicial;
     }

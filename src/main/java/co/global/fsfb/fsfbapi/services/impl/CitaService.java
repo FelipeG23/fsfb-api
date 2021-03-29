@@ -96,7 +96,6 @@ public class CitaService implements ICitaService {
             SQL.append(" ORDER BY \"Fecha Cita\" desc,\n         \"Hora Cita\" desc,\n         \"Tipo de Documento homologado\" desc,\n         \"Documento\" desc   \n");
             LOG.log(Level.INFO, SQL.toString());
 
-            
             Query query = entityManager.createNativeQuery(SQL.toString())
                     .setParameter("FECHAINICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHAFINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
@@ -221,7 +220,7 @@ public class CitaService implements ICitaService {
                     .setParameter("FECHA_INICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHA_FINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
 
-            List<Object[]> citas = query.getResultList();
+             List<Object[]> citas = query.getResultList();
             List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
             citas.stream().forEach(object -> {
                 ResultadoCitaDto resultadoCitaDto = new ResultadoCitaDto();
@@ -477,7 +476,6 @@ public class CitaService implements ICitaService {
             st.setFetchSize(200);
             ResultSet rs = st.executeQuery(SQL.toString());
             while (rs.next()) {
-              
 
             }
             LOG.log(Level.INFO, "Termino consulta- query citas");
@@ -495,5 +493,68 @@ public class CitaService implements ICitaService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<ResultadoCitaDto> consultarCitasPorAutorizarPaginate(ConsultaCitasDto consultaCitasDto) {
+
+        try {
+            StringBuilder SQL = new StringBuilder(QueryConst.Citas.CONSULTAR_CITAS_POR_AUTORIZAR);
+
+            SQL.append(QueryConst.Citas.AND_FECHAS);
+
+            if (!Strings.isEmpty(consultaCitasDto.getTipoDocId())) {
+                SQL.append(QueryConst.Citas.AND_TIPO_DOCUMENTO);
+            }
+            if (!Strings.isEmpty(consultaCitasDto.getNumDocId())) {
+                SQL.append(QueryConst.Citas.AND_NUMERO_DOCUMENTO);
+            }
+            if (!Strings.isEmpty(consultaCitasDto.getNombres())) {
+                SQL.append(QueryConst.Citas.AND_NOMBRES);
+            }
+            if (!Strings.isEmpty(consultaCitasDto.getPrimerApellido())) {
+                SQL.append(QueryConst.Citas.AND_PRIMER_APPELLIDO);
+            }
+            if (!Strings.isEmpty(consultaCitasDto.getSegundoApellido())) {
+                SQL.append(QueryConst.Citas.AND_SEGUNDO_APPELLIDO);
+            }
+
+            SQL.append(QueryConst.Citas.ORDERS_BY_CITAS_POR_AUTORIZAR);
+            SQL.append("    OFFSET ");
+            SQL.append(consultaCitasDto.getPage());
+            SQL.append("ROWS FETCH NEXT 20 ROWS ONLY");
+            
+            Query query = entityManager.createNativeQuery(SQL.toString())
+                    .setParameter("FECHA_INICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
+                    .setParameter("FECHA_FINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
+
+            List<Object[]> citas = query.getResultList();
+            List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
+            citas.stream().forEach(object -> {
+                ResultadoCitaDto resultadoCitaDto = new ResultadoCitaDto();
+                resultadoCitaDto.setIdCita(object[0] != null ? ((BigDecimal) object[0]).longValue() : null);
+                resultadoCitaDto.setPacNum(((BigDecimal) object[1]).longValue());
+                resultadoCitaDto.setNombreCompleto(object[2] != null ? object[2].toString().trim() : null);
+                resultadoCitaDto.setTipTipIDav(object[3].toString().trim());
+                resultadoCitaDto.setNumDocId(object[4].toString().trim());
+                resultadoCitaDto.setFechaCita(
+                        object[5] != null ? new SimpleDateFormat("yyyy/MM/dd").format((Timestamp) object[5]) : null);
+                resultadoCitaDto.setHoraCita(object[6] != null ? object[6].toString().trim() : null);
+                resultadoCitaDto.setFechaCitaCA(
+                        object[7] != null ? new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format((Timestamp) object[7])
+                                : null);
+                resultadoCitaDto.setCodUsrCita(object[8].toString().trim());
+                resultadoCitaDto.setCodConvenio(Arrays.asList(object[9] != null ? object[9].toString().trim() : ""));
+                resultadoCitaDto.setCodigoPrestacion(object[10] != null ? object[10].toString().trim() : "");
+                resultadoCitaDto.setCodEstadoCita(object[12] != null ? object[12].toString().trim() : "");
+                resultadoCitaDto.setValorPrestacional(object[13] != null ? object[13].toString().trim() : "");
+                resultadoCitaDto.setTipoConvenio(object[14] != null ? object[14].toString().trim() : "");
+                resultadoCitaDtos.add(resultadoCitaDto);
+            });
+            return resultadoCitaDtos;
+        } catch (Exception e) {
+//            log.error("Error consultando citas medicas", e);
+            return new ArrayList<ResultadoCitaDto>();
+        }
     }
 }

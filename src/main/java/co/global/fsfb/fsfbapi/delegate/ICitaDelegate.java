@@ -16,6 +16,8 @@ public interface ICitaDelegate {
 
     List<ResultadoCitaDto> consultarCitasPorAutorizar(ConsultaCitasDto consultaCitasDto);
 
+    List<ResultadoCitaDto> consultarCitasPorAutorizarPaginate(ConsultaCitasDto consultaCitasDto);
+
     void updateAsistencia(Long citaId, String estado);
 
     ResultadoCitaDto consultarCitaPorId(ConsultaCitasDto consultaCitasDto);
