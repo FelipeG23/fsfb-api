@@ -94,7 +94,9 @@ public class CitaService implements ICitaService {
                 SQL.append(" AND TRIM(AGEND.PCA_AGE_OBJETO) IN (:UBICACIONES)\n");
             }
             SQL.append(" ORDER BY \"Fecha Cita\" desc,\n         \"Hora Cita\" desc,\n         \"Tipo de Documento homologado\" desc,\n         \"Documento\" desc   \n");
+            LOG.log(Level.INFO, SQL.toString());
 
+            
             Query query = entityManager.createNativeQuery(SQL.toString())
                     .setParameter("FECHAINICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHAFINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
