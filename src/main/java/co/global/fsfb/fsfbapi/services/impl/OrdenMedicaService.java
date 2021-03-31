@@ -156,6 +156,71 @@ public class OrdenMedicaService implements IOrdenMedicaService, IOrdenMedicaMapp
         return resultadoOrdenesDtos;
 
     }
+    @Override
+    public List<ResultadoOrdenMedicaDto> getOrdenesMedicasPaginate(
+            ConsultaOrdenMedicaDto consultaOrdenMedicaDto, int page) {
+        boolean fechas = false;
+        StringBuilder SQL = new StringBuilder(QueryConst.OrdenesMedicas.CONSULTAR_ORDENES);
+        if (consultaOrdenMedicaDto.getEstados().size() == 1) {
+            if (consultaOrdenMedicaDto.getEstados().get(0).toString().trim().equalsIgnoreCase("3")) {
+                fechas = true;
+                SQL.append("WHERE COM.CG_FECHA_PROCESO BETWEEN :FECHAINICIAL AND :FECHAFINAL");
+            } else {
+                fechas = true;
+                SQL.append("WHERE COM.CG_FECHA_PROCESO BETWEEN :FECHAINICIAL AND :FECHAFINAL");
+            }
+        } else if (consultaOrdenMedicaDto.getEstados().size() > 1) {
+            fechas = true;
+            SQL.append("WHERE COM.CG_FECHA_PROCESO BETWEEN :FECHAINICIAL AND :FECHAFINAL");
+        }
+
+        if (consultaOrdenMedicaDto.getEstados() != null && !consultaOrdenMedicaDto.getEstados().isEmpty()) {
+            SQL.append(QueryConst.OrdenesMedicas.AND_ESTADOS);
+        }
+
+        SQL.append(QueryConst.OrdenesMedicas.ORDERS_BY);
+        SQL.append("    OFFSET ");
+        SQL.append(page);
+        SQL.append("ROWS FETCH NEXT 10 ROWS ONLY");
+
+        Query query = entityManager.createNativeQuery(SQL.toString());
+        if (fechas) {
+            query.setParameter("FECHAINICIAL", Timestamp.valueOf(convertDate(consultaOrdenMedicaDto.getFechaInicial()).concat(" 00:00:00")));
+            query.setParameter("FECHAFINAL", Timestamp.valueOf(convertDate(consultaOrdenMedicaDto.getFechaFinal()).concat(" 23:59:59")));
+
+        }
+
+        if (consultaOrdenMedicaDto.getEstados() != null && !consultaOrdenMedicaDto.getEstados().isEmpty()) {
+            query.setParameter("ESTADOS", consultaOrdenMedicaDto.getEstados());
+        }
+
+        List<Object[]> ordenes = query.getResultList();
+        List<ResultadoOrdenMedicaDto> resultadoOrdenesDtos = new ArrayList();
+        ordenes.stream().forEach(object -> {
+            // realizamos la consulta de las autorizaciones de la orden medica
+
+            ResultadoOrdenMedicaDto resultadoOrdenMedicaDto = new ResultadoOrdenMedicaDto();
+            resultadoOrdenMedicaDto.setOrmIdOrdmNumero(object[0] != null ? ((BigDecimal) object[0]).longValue() : null);
+            resultadoOrdenMedicaDto
+                    .setCgFechaProceso(object[1] != null ? new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format((Timestamp) object[1]) : null);
+            resultadoOrdenMedicaDto.setTipTipIDav(object[2] != null ? object[2].toString() : null);
+            resultadoOrdenMedicaDto.setDocumento(object[3] != null ? object[3].toString() : null);
+            resultadoOrdenMedicaDto.setNombreCompleto(object[4] != null ? object[4].toString() : null);
+
+            if (object.length > 5) {
+                resultadoOrdenMedicaDto.setEnProceso(object[5] != null ? ((BigDecimal) object[5]).longValue() : null);
+                resultadoOrdenMedicaDto.setAutorizadas(object[6] != null ? ((BigDecimal) object[6]).longValue() : null);
+                resultadoOrdenMedicaDto.setPrestaciones(object[7] != null ? ((BigDecimal) object[7]).longValue() : null);
+                resultadoOrdenMedicaDto.setOrmIdOrdmNumeroP(object[8] != null ? ((BigDecimal) object[8]).longValue() : null);
+                resultadoOrdenMedicaDto.setContinuidad(object[9] != null ? ((BigDecimal) object[9]).longValue() : null);
+            }
+
+            resultadoOrdenesDtos.add(resultadoOrdenMedicaDto);
+        });
+
+        return resultadoOrdenesDtos;
+
+    }
 
     public String convertDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

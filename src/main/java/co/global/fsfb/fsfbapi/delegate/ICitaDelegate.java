@@ -11,6 +11,9 @@ import java.util.List;
 public interface ICitaDelegate {
 
     List<ResultadoCitaDto> consultarCitas(ConsultaCitasDto consultaCitasDto);
+    
+    List<ResultadoCitaDto> consultarCitasPaginate(
+            ConsultaCitasDto consultaCitasDto, int page);
 
     List<ResultadoCitaDto> consultarCitas2(ConsultaCitasDto consultaCitasDto);
 

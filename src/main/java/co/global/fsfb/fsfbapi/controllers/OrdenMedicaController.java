@@ -37,6 +37,14 @@ public class OrdenMedicaController {
     public ResponseEntity<List<ResultadoOrdenMedicaDto>> getOrdenes(@RequestBody @Valid @NotNull ConsultaOrdenMedicaDto consultaOrdenMedicaDto) {
         return ResponseEntity.ok(ordenMedicaDelegate.getOrdenesMedicas(consultaOrdenMedicaDto));
     }
+    @PostMapping("/getOrdenesPaginate/{page}")
+    public ResponseEntity<List<ResultadoOrdenMedicaDto>> 
+        getOrdenesPaginate(@RequestBody @Valid @NotNull 
+                ConsultaOrdenMedicaDto consultaOrdenMedicaDto, 
+                @PathVariable int page) {
+        return ResponseEntity.ok(ordenMedicaDelegate.getOrdenesMedicasPaginate(
+                consultaOrdenMedicaDto, page));
+    }
     @GetMapping("/validarGestionContinuidad/{ormIdOrdmNumero}")
     public ResponseEntity<Boolean> validarGestionContinuidadOrden(@PathVariable long ormIdOrdmNumero) {
         return ResponseEntity.ok(ordenMedicaDelegate.validarGestionContinuidad(ormIdOrdmNumero));

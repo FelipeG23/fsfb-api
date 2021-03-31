@@ -20,5 +20,8 @@ public interface IOrdenMedicaService {
 
     List<ResultadoOrdenMedicaDto> getOrdenesMedicas(ConsultaOrdenMedicaDto consultaOrdenMedicaDto);
     
+    List<ResultadoOrdenMedicaDto> getOrdenesMedicasPaginate(
+            ConsultaOrdenMedicaDto consultaOrdenMedicaDto, int page);
+    
     boolean validarOrdenContinuidad(long ormIdOrdmNumero);
 }

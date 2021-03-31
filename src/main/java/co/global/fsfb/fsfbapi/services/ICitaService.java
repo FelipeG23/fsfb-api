@@ -14,6 +14,9 @@ public interface ICitaService {
     List<ResultadoCitaDto> consultarCitas2(ConsultaCitasDto consultaCitasDto);
 
     List<ResultadoCitaDto> consultarCitas(ConsultaCitasDto consultaCitasDto);
+    
+    List<ResultadoCitaDto> consultarCitasPaginate(
+            ConsultaCitasDto consultaCitasDto, int page);
 
     List<ResultadoCitaDto> consultarCitasPorAutorizar(ConsultaCitasDto consultaCitasDto);
     

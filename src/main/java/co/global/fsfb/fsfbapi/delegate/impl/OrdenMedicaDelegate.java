@@ -41,6 +41,13 @@ public class OrdenMedicaDelegate implements IOrdenMedicaDelegate{
     public List<ResultadoOrdenMedicaDto> getOrdenesMedicas(ConsultaOrdenMedicaDto consultaOrdenMedicaDto) {
         return ordenMedicaService.getOrdenesMedicas(consultaOrdenMedicaDto);
     }
+    
+        @Override
+    public List<ResultadoOrdenMedicaDto> getOrdenesMedicasPaginate(
+            ConsultaOrdenMedicaDto consultaOrdenMedicaDto, int page) {
+        return ordenMedicaService.getOrdenesMedicasPaginate(
+                consultaOrdenMedicaDto, page);
+    }
 
     @Override
     public boolean validarGestionContinuidad(long ormIdOrdmNumero) {
