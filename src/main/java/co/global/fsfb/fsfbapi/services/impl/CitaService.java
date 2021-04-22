@@ -242,6 +242,7 @@ public class CitaService implements ICitaService {
             SQL.append(page);
             SQL.append("ROWS FETCH NEXT 10 ROWS ONLY");
 
+
             Query query = entityManager.createNativeQuery(SQL.toString())
                     .setParameter("FECHAINICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHAFINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
@@ -282,6 +283,8 @@ public class CitaService implements ICitaService {
                 caUbicacionSedes.forEach(caUbicacionSede -> in.add(caUbicacionSede.getConsultorio().trim()));
                 query.setParameter("UBICACIONES", (Object) in);
             }
+            
+            System.out.println("Query: " + query);
             final List<Object[]> citas = (List<Object[]>) query.getResultList();
 
             final List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
@@ -415,7 +418,7 @@ public class CitaService implements ICitaService {
     @Override
     public ResultadoCitaDto consultarCitaPorId(ConsultaCitasDto consultaCitasDto) {
         String SQL = QueryConst.Citas.CONSULTAR_CITA_POR_ID;
-
+        System.out.print(SQL);
         Query query = entityManager.createNativeQuery(SQL)
                 .setParameter("IDCITA", consultaCitasDto.getIdCita());
 
@@ -703,4 +706,12 @@ public class CitaService implements ICitaService {
             return new ArrayList<ResultadoCitaDto>();
         }
     }
+
+    @Override
+    public String cambioConvenio(Integer citaId, Integer nuevoConv) {
+        //TODO HACER QUERY PARA CAMBIO DE CONVENIO, PENDIENTE DE DE PERMISOS USUARIO BD
+        return null;
+    }
+    
+    
 }

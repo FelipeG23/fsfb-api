@@ -24,5 +24,7 @@ public interface ICitaDelegate {
     void updateAsistencia(Long citaId, String estado);
 
     ResultadoCitaDto consultarCitaPorId(ConsultaCitasDto consultaCitasDto);
+    
+    String cambioConvenio(Integer citaId, Integer nuevoConv);
 
 }

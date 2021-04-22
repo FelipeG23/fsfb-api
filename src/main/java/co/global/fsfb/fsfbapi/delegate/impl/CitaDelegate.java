@@ -58,5 +58,10 @@ public class CitaDelegate implements ICitaDelegate {
     public List<ResultadoCitaDto> consultarCitasPorAutorizarPaginate(ConsultaCitasDto consultaCitasDto) {
          return citaService.consultarCitasPorAutorizarPaginate(consultaCitasDto);
     }
+    
+    @Override
+    public String cambioConvenio(Integer citaId, Integer nuevoConv) {
+         return citaService.cambioConvenio(citaId, nuevoConv);
+    }
 
 }
