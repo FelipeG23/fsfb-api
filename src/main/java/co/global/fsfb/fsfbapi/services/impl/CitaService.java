@@ -239,7 +239,7 @@ public class CitaService implements ICitaService {
             LOG.log(Level.INFO, SQL.toString());
             
             SQL.append("    OFFSET ");
-            SQL.append(page);
+            SQL.append(String.valueOf(page));
             SQL.append("ROWS FETCH NEXT 10 ROWS ONLY");
 
 
@@ -286,6 +286,11 @@ public class CitaService implements ICitaService {
             
             System.out.println("Query: " + query);
             final List<Object[]> citas = (List<Object[]>) query.getResultList();
+            
+            System.out.println(query.getParameterValue("FECHAINICIAL"));
+            System.out.println(query.getParameterValue("FECHAFINAL"));
+            System.out.println(query.getParameterValue("ESPE"));
+            System.out.println(query.getParameterValue("SUBESPE"));
 
             final List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
             citas.stream().forEach(object -> {
