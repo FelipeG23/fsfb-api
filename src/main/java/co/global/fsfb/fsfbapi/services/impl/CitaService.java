@@ -239,7 +239,7 @@ public class CitaService implements ICitaService {
             LOG.log(Level.INFO, SQL.toString());
             
             SQL.append("    OFFSET ");
-            SQL.append(String.valueOf(page));
+            SQL.append(page);
             SQL.append("ROWS FETCH NEXT 10 ROWS ONLY");
 
 
