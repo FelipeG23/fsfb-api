@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Parameter;
 
 /**
  *
@@ -202,10 +203,10 @@ public class CitaService implements ICitaService {
                 SQL.append(" AND CA.CODIGOINTERNOCENTRO = :SEDE");
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodEspecialidad())) {
-                SQL.append(" AND ESPE.SER_ESP_CODIGO = :ESPE");
+                SQL.append(" AND TRIM(ESPE.SER_ESP_CODIGO) = :ESPE");
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodSubEspecialidad())) {
-                SQL.append(" AND SUBESPE.SER_SUB_CODIGO = :SUBESPE");
+                SQL.append(" AND TRIM(SUBESPE.SER_SUB_CODIGO) = :SUBESPE");
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodServicio())) {
                 SQL.append(" AND SER.SER_SER_CODIGO = :SERVICIO");
@@ -285,12 +286,7 @@ public class CitaService implements ICitaService {
             }
             
             System.out.println("Query: " + query);
-            final List<Object[]> citas = (List<Object[]>) query.getResultList();
-            
-            System.out.println(query.getParameterValue("FECHAINICIAL"));
-            System.out.println(query.getParameterValue("FECHAFINAL"));
-            System.out.println(query.getParameterValue("ESPE"));
-            System.out.println(query.getParameterValue("SUBESPE"));
+            final List<Object[]> citas = (List<Object[]>) query.getResultList();           
 
             final List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
             citas.stream().forEach(object -> {
