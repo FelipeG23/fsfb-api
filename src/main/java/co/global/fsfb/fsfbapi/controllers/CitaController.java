@@ -17,6 +17,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 /**
  *
@@ -40,13 +41,15 @@ public class CitaController {
             @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto) {
         return ResponseEntity.ok(citaDelegate.consultarCitas(consultaCitasDto));
     }
+    
     @PostMapping("/consultarCitasPaginate/{page}")
     public ResponseEntity<List<ResultadoCitaDto>> consultarCitasPaginate(
             @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto,
             @PathVariable int page) {
         return ResponseEntity.ok(citaDelegate.consultarCitasPaginate(
                 consultaCitasDto, page));
-    }   
+    }
+    
     @PostMapping("/consultarCitas2")
     public ResponseEntity<List<ResultadoCitaDto>> consultarCitas2(
             @RequestBody @Valid @NotNull ConsultaCitasDto consultaCitasDto) {

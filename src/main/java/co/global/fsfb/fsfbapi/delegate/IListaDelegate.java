@@ -1,6 +1,7 @@
 package co.global.fsfb.fsfbapi.delegate;
 
 import co.global.fsfb.fsfbapi.dto.CitasAutorizadasDto;
+import co.global.fsfb.fsfbapi.dto.EspeAndSubDTO;
 import co.global.fsfb.fsfbapi.dto.ListaDto;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface IListaDelegate {
     List<ListaDto> getEspecialidades();
 
     List<ListaDto> getSubEspecialidades();
+
+    List<EspeAndSubDTO> getEspAndSub();
 
     List<ListaDto> getServicios();
 

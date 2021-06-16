@@ -26,7 +26,7 @@ public class CitaDelegate implements ICitaDelegate {
     public List<ResultadoCitaDto> consultarCitas(ConsultaCitasDto consultaCitasDto) {
         return citaService.consultarCitas(consultaCitasDto);
     }
-    
+
     @Override
     public List<ResultadoCitaDto> consultarCitasPaginate(
             ConsultaCitasDto consultaCitasDto, int page) {
@@ -40,7 +40,6 @@ public class CitaDelegate implements ICitaDelegate {
 
     @Override
     public void updateAsistencia(Long citaId, String estado) {
-
         citaService.updateAsistencia(citaId, estado);
     }
 
@@ -56,12 +55,12 @@ public class CitaDelegate implements ICitaDelegate {
 
     @Override
     public List<ResultadoCitaDto> consultarCitasPorAutorizarPaginate(ConsultaCitasDto consultaCitasDto) {
-         return citaService.consultarCitasPorAutorizarPaginate(consultaCitasDto);
+        return citaService.consultarCitasPorAutorizarPaginate(consultaCitasDto);
     }
-    
+
     @Override
     public String cambioConvenio(Integer citaId, Integer nuevoConv) {
-         return citaService.cambioConvenio(citaId, nuevoConv);
+        return citaService.cambioConvenio(citaId, nuevoConv);
     }
 
 }

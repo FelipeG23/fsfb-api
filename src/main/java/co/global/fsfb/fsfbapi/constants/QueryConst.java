@@ -443,6 +443,13 @@ public class QueryConst {
         public static final String CONSULTAR_MEDICOS_LIKE = "SELECT SER_PRO_RUT, TRIM (SER_PRO_NOMBRES) || ' ' || TRIM (SER_PRO_APELLPATER) || ' ' || TRIM (SER_PRO_APELLMATER) NOMBRE, SER_PRO_TIPOIDENT FROM ADMSALUD.SER_PROFESIONA@ISIS WHERE SER_PRO_ESTADO = 'A' AND TRIM (SER_PRO_NOMBRES) || ' ' || TRIM (SER_PRO_APELLPATER) || ' ' || TRIM (SER_PRO_APELLMATER) LIKE '%";
         public static final String CONSULTAR_MOTIVOS_NO_AUTORIZA = "SELECT MNA_IDCODIGO, MNA_DESCRIPCION, MNA_ESTADO FROM CA_MOTIVOS_NO_AUTORIZACION WHERE MNA_ESTADO = '1'";
         public static final String CONSULTA_UBICACION_SEDES = "select distinct ubicacion as ub1, ubicacion as ub2, '' as ub3 from ca_ubicacion_sedes where ubicacion is not null";
+        public static final String CONSULTA_ESPECIALIDADES_AND_SUBESPE = "SELECT * FROM (\n"
+        + "SELECT SER_ESP_CODIGO AS \"codigo\", TRIM(SER_ESP_DESCRIPCIO) AS \"descripcion\", SER_ESP_CODIGO AS \"otro\", 'ESPECIALIDAD' as \"tipo\" FROM ADMSALUD.SER_ESPECIALI@ISIS\n"
+        + "UNION\n"
+        + "SELECT SER_SUB_CODIGO AS \"codigo\",\n"
+        + "TRIM(SER_SUB_DESCRIPCIO) AS \"descripcion\",\n"
+        + "SER_ESP_CODIGO AS \"otro\",\n"
+        + "'SUBESPECIALIDAD' as \"tipo\" FROM ADMSALUD.SER_SUBESPECIA@ISIS)";
 
     }
 }

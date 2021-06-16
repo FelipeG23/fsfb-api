@@ -1,6 +1,7 @@
 package co.global.fsfb.fsfbapi.services;
 
 import co.global.fsfb.fsfbapi.dto.CitasAutorizadasDto;
+import co.global.fsfb.fsfbapi.dto.EspeAndSubDTO;
 import co.global.fsfb.fsfbapi.dto.ListaDto;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface IListaService {
     
     List<CitasAutorizadasDto> getLista(String query);
 
-    
+    List<EspeAndSubDTO> getEspAndSub();
 }
