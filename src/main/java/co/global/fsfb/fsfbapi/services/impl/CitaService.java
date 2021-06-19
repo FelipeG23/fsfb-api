@@ -190,7 +190,7 @@ public class CitaService implements ICitaService {
         }
         return null;
     }
-    
+
     @Override
     public List<ResultadoCitaDto> consultarCitasPaginate(
             ConsultaCitasDto consultaCitasDto, int page) {
@@ -204,6 +204,7 @@ public class CitaService implements ICitaService {
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodEspecialidad())) {
                 SQL.append(" AND TRIM(ESPE.SER_ESP_CODIGO) = :ESPE");
+                SQL.append(" AND TRIM(SUBESPE.SER_ESP_CODIGO) = :ESPE");
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodSubEspecialidad())) {
                 SQL.append(" AND TRIM(SUBESPE.SER_SUB_CODIGO) = :SUBESPE");
@@ -238,11 +239,8 @@ public class CitaService implements ICitaService {
             }
             SQL.append(" ORDER BY \"Fecha Cita\" desc,\n         \"Hora Cita\" desc,\n         \"Tipo de Documento homologado\" desc,\n         \"Documento\" desc   \n");
             LOG.log(Level.INFO, SQL.toString());
-            
-            SQL.append("    OFFSET ");
-            SQL.append(page);
-            SQL.append("ROWS FETCH NEXT 10 ROWS ONLY");
 
+            SQL.append("    OFFSET " + page + "ROWS FETCH NEXT 10 ROWS ONLY");
 
             Query query = entityManager.createNativeQuery(SQL.toString())
                     .setParameter("FECHAINICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
@@ -284,9 +282,9 @@ public class CitaService implements ICitaService {
                 caUbicacionSedes.forEach(caUbicacionSede -> in.add(caUbicacionSede.getConsultorio().trim()));
                 query.setParameter("UBICACIONES", (Object) in);
             }
-            
+
             System.out.println("Query: " + query);
-            final List<Object[]> citas = (List<Object[]>) query.getResultList();           
+            final List<Object[]> citas = (List<Object[]>) query.getResultList();
 
             final List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
             citas.stream().forEach(object -> {
@@ -370,7 +368,7 @@ public class CitaService implements ICitaService {
                     .setParameter("FECHA_INICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHA_FINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
 
-             List<Object[]> citas = query.getResultList();
+            List<Object[]> citas = query.getResultList();
             List<ResultadoCitaDto> resultadoCitaDtos = new ArrayList<ResultadoCitaDto>();
             citas.stream().forEach(object -> {
                 ResultadoCitaDto resultadoCitaDto = new ResultadoCitaDto();
@@ -673,7 +671,7 @@ public class CitaService implements ICitaService {
             SQL.append("    OFFSET ");
             SQL.append(consultaCitasDto.getPage());
             SQL.append("ROWS FETCH NEXT 10 ROWS ONLY");
-            
+
             Query query = entityManager.createNativeQuery(SQL.toString())
                     .setParameter("FECHA_INICIAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaInicial()).concat(" 00:00:00")))
                     .setParameter("FECHA_FINAL", Timestamp.valueOf(convertDate(consultaCitasDto.getFechaFinal()).concat(" 23:59:59")));
@@ -713,6 +711,5 @@ public class CitaService implements ICitaService {
         //TODO HACER QUERY PARA CAMBIO DE CONVENIO, PENDIENTE DE DE PERMISOS USUARIO BD
         return null;
     }
-    
-    
+
 }

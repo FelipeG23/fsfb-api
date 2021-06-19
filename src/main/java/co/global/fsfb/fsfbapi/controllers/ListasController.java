@@ -67,6 +67,11 @@ public class ListasController {
         return ResponseEntity.ok(listaDelegate.getSubEspecialidades());
     }
 
+    @GetMapping("/espAndSub")
+    public ResponseEntity<?> getEspAndSub() {
+        return ResponseEntity.ok(listaDelegate.getEspAndSub());
+    }
+
     @GetMapping("/citasAutorizadas")
     public ResponseEntity<List<CitasAutorizadasDto>> getCitasAutorizadas() {
         return ResponseEntity.ok(listaDelegate.getCitasAutorizadas());

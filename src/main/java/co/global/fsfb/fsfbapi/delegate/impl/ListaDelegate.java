@@ -3,6 +3,7 @@ package co.global.fsfb.fsfbapi.delegate.impl;
 import co.global.fsfb.fsfbapi.constants.QueryConst;
 import co.global.fsfb.fsfbapi.delegate.IListaDelegate;
 import co.global.fsfb.fsfbapi.dto.CitasAutorizadasDto;
+import co.global.fsfb.fsfbapi.dto.EspeAndSubDTO;
 import co.global.fsfb.fsfbapi.dto.ListaDto;
 import co.global.fsfb.fsfbapi.services.IListaService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,11 @@ public class ListaDelegate implements IListaDelegate {
     @Override
     public List<ListaDto> getSubEspecialidades() {
         return listaService.getList(QueryConst.Listas.CONSULTAR_SUBESPECIALIDADES);
+    }
+
+    @Override
+    public List<EspeAndSubDTO> getEspAndSub() {
+        return listaService.getEspAndSub();
     }
 
     @Override

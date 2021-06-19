@@ -25,6 +25,7 @@ public class ConsultaCitasDto {
     private String codCentroAten;
     private String codEspecialidad;
     private String codSubEspecialidad;
+    private boolean isEspe;
     private String codProf;
     private List<String> convenios;
     private String indRecepcionado;
@@ -42,9 +43,7 @@ public class ConsultaCitasDto {
     public void setPage(Integer page) {
         this.page = page;
     }
-    
-    
-    
+
     public String getFechaInicial() {
         return fechaInicial;
     }
@@ -187,6 +186,14 @@ public class ConsultaCitasDto {
 
     public void setTipoConvenio(String tipoConvenio) {
         this.tipoConvenio = tipoConvenio;
+    }
+
+    public boolean isIsEspe() {
+        return isEspe;
+    }
+
+    public void setIsEspe(boolean isEspe) {
+        this.isEspe = isEspe;
     }
 
 }
