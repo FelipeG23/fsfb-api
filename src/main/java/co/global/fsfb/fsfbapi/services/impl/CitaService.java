@@ -204,7 +204,9 @@ public class CitaService implements ICitaService {
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodEspecialidad())) {
                 SQL.append(" AND TRIM(ESPE.SER_ESP_CODIGO) = :ESPE");
-                SQL.append(" AND TRIM(SUBESPE.SER_ESP_CODIGO) = :ESPE");
+                if (consultaCitasDto.getCodSubEspecialidad().trim().isEmpty()){
+                    SQL.append(" AND TRIM(SUBESPE.SER_ESP_CODIGO) = :ESPE");
+                }
             }
             if (!Strings.isEmpty((CharSequence) consultaCitasDto.getCodSubEspecialidad())) {
                 SQL.append(" AND TRIM(SUBESPE.SER_SUB_CODIGO) = :SUBESPE");

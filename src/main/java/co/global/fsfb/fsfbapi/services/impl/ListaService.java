@@ -132,18 +132,26 @@ public class ListaService implements IListaService {
         List<String> cacheRepeted = new ArrayList();
         return Collections.synchronizedList(array.stream().map(o -> {
             List<EspeAndSubDTO> repeted = Collections.synchronizedList(array.stream()
-                    .filter(a -> !a.getId().equals(o.getId()) && a.getDescripcion().equals(o.getDescripcion()))
+                    .filter(a -> (!a.getId().equals(o.getId()) || !a.getTipo().equals(o.getTipo())) && a.getDescripcion().equals(o.getDescripcion()))
                     .collect(Collectors.toList()));
 
             if (repeted.size() > 0 || cacheRepeted.contains(o.getDescripcion())) {
                 cacheRepeted.add(o.getDescripcion());
-                List<EspeAndSubDTO> otro = Collections.synchronizedList(array.stream().filter(a -> a.getId().equals(o.getOtro()) && !a.getId().equals(o.getId()) )
+                List<EspeAndSubDTO> otro = Collections.synchronizedList(
+                    array.stream().filter(a -> a.getId().equals(o.getOtro()))
                         .collect(Collectors.toList()));
-                o.setDescripcion(otro.size() > 0 ? o.getDescripcion() + " - " + otro.get(0).getDescripcion()
-                        : o.getDescripcion());
+                if (otro.size() > 0) {
+                    String description = otro.get(0).getId().equals(o.getId()) && !otro.get(0).getTipo().equals(o.getTipo())
+                        ? o.getDescripcion() + " - " + o.getTipo()
+                        : !otro.get(0).getId().equals(o.getId()) 
+                            ? otro.get(0).getDescripcion().equals(o.getDescripcion()) 
+                                ? o.getDescripcion() + " - " + o.getTipo()
+                                : o.getDescripcion() + " - " + otro.get(0).getDescripcion()
+                            : o.getDescripcion();
+                    o.setDescripcion(description);
+                }
             }
             return o;
         }).collect(Collectors.toList()));
     }
-
 }
